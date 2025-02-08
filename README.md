@@ -1,4 +1,4 @@
-# Emotion-Based Music Player 🎵🙂
+# Music by Mood 🎵🙂
 
 This project detects emotions using a camera and plays music accordingly.
 
