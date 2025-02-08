@@ -52,11 +52,11 @@ while cap.isOpened():
 
             # Volume control logic
             current_vol = volume.GetMasterVolumeLevelScalar()
-            if hand_angle > 15:  # Rightward gesture → Increase volume
-                new_vol = min(current_vol + 0.05, 1.0)
+            if hand_angle < 15:  # Rightward gesture → Increase volume
+                new_vol = min(current_vol + 500.0, 1.0)
                 set_volume(new_vol)
                 print(f"Increasing volume to {new_vol:.2f}")
-            elif hand_angle < -15:  # Leftward gesture → Decrease volume
+            elif hand_angle > -15:  # Leftward gesture → Decrease volume
                 new_vol = max(current_vol - 0.05, 0.0)
                 set_volume(new_vol)
                 print(f"Decreasing volume to {new_vol:.2f}")
