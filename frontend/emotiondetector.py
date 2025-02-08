@@ -13,6 +13,7 @@ cap = cv2.VideoCapture(0)  # 0 for default webcam
 # Initialize variables
 start_time = time.time()
 emotion_list = []  # To store detected emotions
+ages = [] #store ages
 
 while True:
     ret, frame = cap.read()
@@ -20,21 +21,23 @@ while True:
         break
     
     # Display the video feed
-    cv2.imshow("Emotion Detection", frame)
+    cv2.imshow("Emotion Detection and Age Detection", frame)
     
     # Save a frame as an image for DeepFace analysis
     cv2.imwrite("temp_frame.jpg", frame)
     
     try:
         # Analyze the emotion in the frame
-        analysis = DeepFace.analyze(img_path="temp_frame.jpg", actions=['emotion'], enforce_detection=False)
+        analysis = DeepFace.analyze(img_path="temp_frame.jpg", actions=['emotion', 'age'], enforce_detection=False)
         
         # Extract emotion
         emotion = analysis[0]['dominant_emotion']
+        age = analysis[0]['age']
         print(f"Detected Emotion: {emotion}")
         
         # Add detected emotion to the list
         emotion_list.append(emotion)
+        ages.append(age)
 
     except Exception as e:
         print(f"Error: {e}")
@@ -51,7 +54,7 @@ while True:
 # Determine the most common emotion detected in the last 10 seconds
 if emotion_list:
     most_common_emotion = Counter(emotion_list).most_common(1)[0][0]
-    print(f"Most Detected Emotion: {most_common_emotion}")
+    print(f"Most Detected Emotion: {most_common_emotion}, Detected age: {age}")
 
     # Play the corresponding music based on the most frequent emotion
     if most_common_emotion == "happy":
@@ -59,13 +62,17 @@ if emotion_list:
     elif most_common_emotion == "sad":
         pygame.mixer.music.load("sad.mp3")
     elif most_common_emotion == "neutral":
-        pygame.mixer.music.load("neutralmusic.mp3")
+        pygame.mixer.music.load("neutral.mp3")    
     elif most_common_emotion == "fear":
-        pygame.mixer.music.load("fearmusic.mp3")
+        pygame.mixer.music.load("fear.mp3")
     elif most_common_emotion == "angry":
-        pygame.mixer.music.load("angrymusic.mp3")
+        if age >= 18:
+            pygame.mixer.music.load("angry18.mp3")
+        else:
+            pygame.mixer.music.load("angry.mp3")
+        #pygame.mixer.music.load("angrymusic.mp3")
     elif most_common_emotion == "surprise":
-        pygame.mixer.music.load("surprisemusic.mp3")
+        pygame.mixer.music.load("surprise.mp3")
     else:
         print("No dominant happy or sad emotion detected.")
         pygame.mixer.music.stop()  # Stop music if neither happy nor sad
