@@ -1,0 +1,195 @@
+body,
+html,
+#app {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  overflow: hidden; /* Prevents scrolling */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app {
+  overflow: hidden;
+  touch-action: pan-up;
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  text-shadow: 0 0 5px #ffffff, 0 0 20px #000, 0 0 30px #000;
+}
+
+#app h1 {
+  --fontSize: 5vw; /* Make font size relative to viewport width */
+  --lineHeight: 8vw;
+  width: auto;
+  height: calc(2 * var(--lineHeight));
+  line-height: var(--lineHeight);
+  margin: calc(50vh - var(--lineHeight)) auto 0;
+  font-size: var(--fontSize);
+  text-transform: uppercase;
+}
+
+#app a {
+  margin-top: 10px;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+}
+
+#app canvas {
+  display: block;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+}
+
+@keyframes tigerAnimation {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -600px 0;
+  } /* Assuming each frame is 120px wide and there are 6 frames */
+}
+
+@keyframes explode {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(10);
+    opacity: 0;
+  }
+}
+
+/* Styles for the page container */
+.page-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Semicircle style */
+/* Semicircle Left - Adjusted positioning and size */
+.semicircle_left {
+  position: absolute;
+  left: -10vw; /* Adjusted to keep the semicircle visible */
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg); /* Adjust rotation */
+  width: 30vw; /* Responsive width */
+  height: 15vw; /* Responsive height */
+  background-color: red;
+  border-radius: 150px 150px 0 0; /* Makes it a semicircle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1; /* Ensure it's above the tiger */
+}
+
+/* Text inside the left semicircle */
+.semicircle-text_left {
+  color: white;
+  font-size: 3vw; /* Font size relative to the viewport width */
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Semicircle Right - Adjusted positioning and size */
+.semicircle_right {
+  position: absolute;
+  right: -10vw; /* Adjusted to make it slightly off-screen */
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg); /* Adjust rotation to -90deg for right side */
+  width: 30vw; /* Responsive width */
+  height: 15vw; /* Responsive height */
+  background-color: blue;
+  border-radius: 150px 150px 0 0; /* Makes it a semicircle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Higher z-index to bring it above other elements */
+}
+
+/* Text inside the right semicircle */
+.semicircle-text_right {
+  color: white;
+  font-size: 3vw; /* Font size relative to the viewport width */
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Semicircle Up - Adjusted positioning and size */
+.semicircle_up {
+  position: absolute;
+  top: -10vh; /* Position slightly off-screen at the top */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%) rotate(-180deg); /* Rotate to face upwards */
+  width: 30vw; /* Responsive width */
+  height: 15vw; /* Responsive height */
+  background-color: yellow;
+  border-radius: 150px 150px 0 0; /* Makes it a semicircle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Higher z-index to bring it above other elements */
+}
+
+/* Text inside the up semicircle */
+.semicircle-text_up {
+  color: white;
+  font-size: 3vw; /* Font size relative to the viewport width */
+  font-weight: bold;
+  transform: rotate(-180deg);
+  text-transform: uppercase;
+}
+
+/* Semicircle Down - Adjusted positioning and size */
+.semicircle_down {
+  position: absolute;
+  bottom: -10vh; /* Position slightly off-screen at the bottom */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  width: 30vw; /* Responsive width */
+  height: 15vw; /* Responsive height */
+  background-color: green;
+  border-radius: 150px 150px 0 0; /* Makes it a semicircle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Higher z-index to bring it above other elements */
+}
+
+/* Text inside the down semicircle */
+.semicircle-text_down {
+  color: white;
+  font-size: 3vw; /* Font size relative to the viewport width */
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Custom glowing effect */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 15px #f00;
+  }
+  50% {
+    box-shadow: 0 0 20px #f00, 0 0 30px #f00, 0 0 40px #f00;
+  }
+  100% {
+    box-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 15px #f00;
+  }
+}
+
+.glow-effect {
+  animation: glow 1.5s ease-in-out infinite;
+}
