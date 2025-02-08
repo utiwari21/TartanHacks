@@ -1,6 +1,7 @@
 # Music by Mood 🎵🙂
 
-This project detects emotions using a camera and plays music accordingly.
+This project detects emotions using a camera and plays music accordingly. 
+The user also has the ability to change the volume through their hand gestures.
 
 ## 🚀 How to Run
 
