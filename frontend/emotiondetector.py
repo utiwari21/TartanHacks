@@ -57,7 +57,7 @@ if emotion_list:
     if most_common_emotion == "happy":
         pygame.mixer.music.load("happy.mp3")
     elif most_common_emotion == "sad":
-        pygame.mixer.music.load("happy.mp3")
+        pygame.mixer.music.load("sad.mp3")
     elif most_common_emotion == "neutral":
         pygame.mixer.music.load("neutralmusic.mp3")
     elif most_common_emotion == "fear":
@@ -73,6 +73,9 @@ if emotion_list:
     print("Music will be loaded")
     pygame.mixer.music.play()
     print("Music SHOULD be loaded")
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)
+
 
 # Release the camera and close windows
 cap.release()
